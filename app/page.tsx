@@ -41,7 +41,7 @@ const CPUCoolingSimulation = () => {
 
   }, [temp, time, isRunning]);
 
-  const drawMainSystem = (ctx, width, height) => {
+  const drawMainSystem = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     const centerX = width / 2;
     const centerY = 400;
 
@@ -246,7 +246,7 @@ const CPUCoolingSimulation = () => {
     drawProcessFlow(ctx, centerX, centerY);
   };
 
-  const drawProcessFlow = (ctx, cx, cy) => {
+  const drawProcessFlow = (ctx: CanvasRenderingContext2D, cx: number, cy: number) => {
     const steps = [
       { num: '1', label: 'Panas\nDihasilkan', x: cx - 520, y: cy + 330, color: '#ef4444' },
       { num: '2', label: 'Konduksi\nke Heatsink', x: cx - 520, y: cy + 200, color: '#f97316' },
@@ -290,7 +290,7 @@ const CPUCoolingSimulation = () => {
     });
   };
 
-  const drawAmbientAir = (ctx, x, y) => {
+  const drawAmbientAir = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
     ctx.fillStyle = 'rgba(96, 165, 250, 0.15)';
     ctx.fillRect(50, y, 1100, 60);
 
@@ -309,7 +309,7 @@ const CPUCoolingSimulation = () => {
     ctx.shadowBlur = 0;
   };
 
-  const drawFan = (ctx, x, y) => {
+  const drawFan = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
     const radius = 70;
 
     // Fan glow
@@ -366,7 +366,7 @@ const CPUCoolingSimulation = () => {
     ctx.stroke();
   };
 
-  const drawHeatsink = (ctx, x, y) => {
+  const drawHeatsink = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
     const width = 240;
     const height = 90;
     const finCount = 16;
@@ -406,7 +406,7 @@ const CPUCoolingSimulation = () => {
     ctx.fillRect(x - width / 2 - 10, y + height - 12, width + 20, 3);
   };
 
-  const drawCPU = (ctx, x, y) => {
+  const drawCPU = (ctx: CanvasRenderingContext2D, x: number, y: number) => {
     // Only modify drawCPU: introduce a local cpuYOffset so the CPU can be moved
     // up/down without touching centerY or other components. Positive moves CPU down.
     const cpuYOffset = 160; // adjust this value to move CPU only (px)
@@ -474,7 +474,7 @@ const CPUCoolingSimulation = () => {
     }
   };
 
-  const drawTemperatureGraph = (ctx, width, height) => {
+  const drawTemperatureGraph = (ctx: CanvasRenderingContext2D, width: number, height: number) => {
     const graphX = 50;
     const graphY = height - 280;
     const graphWidth = width - 100;
@@ -577,7 +577,7 @@ const CPUCoolingSimulation = () => {
     ctx.shadowBlur = 0;
   };
 
-  const drawAirflowArrow = (ctx, x1, y1, x2, y2) => {
+  const drawAirflowArrow = (ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) => {
     ctx.strokeStyle = '#60a5fa';
     ctx.fillStyle = '#60a5fa';
     ctx.lineWidth = 4;
@@ -598,7 +598,7 @@ const CPUCoolingSimulation = () => {
     ctx.shadowBlur = 0;
   };
 
-  const drawHotAirArrow = (ctx, x1, y1, x2, y2) => {
+  const drawHotAirArrow = (ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) => {
     ctx.strokeStyle = '#ef4444';
     ctx.fillStyle = '#ef4444';
     ctx.lineWidth = 4;
@@ -619,7 +619,7 @@ const CPUCoolingSimulation = () => {
     ctx.shadowBlur = 0;
   };
 
-  const drawUpArrow = (ctx, x1, y1, x2, y2) => {
+  const drawUpArrow = (ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) => {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -633,7 +633,7 @@ const CPUCoolingSimulation = () => {
     ctx.fill();
   };
 
-  const drawLeftArrow = (ctx, x1, y1, x2, y2) => {
+  const drawLeftArrow = (ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) => {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -647,7 +647,7 @@ const CPUCoolingSimulation = () => {
     ctx.fill();
   };
 
-  const drawRightArrow = (ctx, x1, y1, x2, y2) => {
+  const drawRightArrow = (ctx: CanvasRenderingContext2D, x1: number, y1: number, x2: number, y2: number) => {
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
