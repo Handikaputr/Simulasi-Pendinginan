@@ -263,7 +263,6 @@ const CPUCoolingSimulation = () => {
     if (tempRatio > 0.1) {
       ctx.fillStyle = '#ef4444';
       ctx.font = 'bold 22px sans-serif';
-      ctx.textAlign = 'Start';
       ctx.shadowBlur = 20;
       ctx.shadowColor = '#ef4444';
       ctx.fillText('CPU Menghasilkan', centerX + 100, centerY + 270);
