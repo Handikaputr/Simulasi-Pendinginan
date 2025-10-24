@@ -53,7 +53,7 @@ const CPUCoolingSimulation = () => {
 
       cpuImg.src = 'asset/CPU.png';
       heatsinkImg.src = 'asset/heatsink_.png';
-      fancoolerImg.src = 'asset/fancooler.png';
+      fancoolerImg.src = 'asset/fanCooler.png';
       liquidImg.src = 'asset/Liquid.png';
 
       cpuImageRef.current = cpuImg;
