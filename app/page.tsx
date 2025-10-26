@@ -1148,8 +1148,8 @@ const CPUCoolingSimulation = () => {
 
                 <div className={`rounded-lg md:rounded-xl p-2 md:p-6 mb-4 md:mb-6 ${isLightMode ? 'bg-blue-50 border border-blue-200' : 'bg-slate-950/70 text-nowrap backdrop-blur border border-purple-500/20'}`}>
                   <p className={`text-[1rem] text-center font-mono font-bold ${isLightMode
-                      ? 'text-slate-800'
-                      : 'text-white drop-shadow-[0_0_10px_rgba(0,180,255,0.7)]'
+                    ? 'text-slate-800'
+                    : 'text-white drop-shadow-[0_0_10px_rgba(0,180,255,0.7)]'
                     }`}>
                     T(t) {computedTemp.toFixed(2)} = <br></br> {Tambient} + ({T0} − {Tambient}) × e^(-{k}·{time.toFixed(2)})
                   </p>
@@ -1204,8 +1204,10 @@ const CPUCoolingSimulation = () => {
                       <div className="flex-shrink-0 w-12">
                         <div className={`font-mono text-lg ${isLightMode ? 'text-emerald-600' : 'text-emerald-400'}`}>T(t)</div>
                       </div>
-                      <div className="flex-1">
-                        <div className="text-sm font-semibold">Suhu CPU pada waktu t</div>
+                      <div className="flex-1 ">
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Suhu CPU pada waktu t
+                        </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{temp.toFixed(1)}°C</div>
                       </div>
                     </div>
@@ -1215,7 +1217,9 @@ const CPUCoolingSimulation = () => {
                         <div className={`font-mono text-lg ${isLightMode ? 'text-cyan-600' : 'text-cyan-400'}`}>T_amb</div>
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-semibold">Suhu udara sekitar</div>
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Suhu udara sekitar
+                        </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{Tambient}°C</div>
                       </div>
                     </div>
@@ -1225,7 +1229,9 @@ const CPUCoolingSimulation = () => {
                         <div className={`font-mono text-lg ${isLightMode ? 'text-red-600' : 'text-red-400'}`}>T₀</div>
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-semibold">Suhu awal CPU</div>
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Suhu awal CPU
+                        </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{T0}°C</div>
                       </div>
                     </div>
@@ -1235,7 +1241,9 @@ const CPUCoolingSimulation = () => {
                         <div className={`font-mono text-lg ${isLightMode ? 'text-yellow-600' : 'text-yellow-400'}`}>k</div>
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-semibold">Konstanta pendinginan</div>
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Konstanta pendinginan
+                        </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{k}</div>
                       </div>
                     </div>
@@ -1245,11 +1253,14 @@ const CPUCoolingSimulation = () => {
                         <div className={`font-mono text-lg ${isLightMode ? 'text-purple-600' : 'text-purple-400'}`}>t</div>
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-semibold">Waktu</div>
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Waktu
+                        </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{time.toFixed(1)}s</div>
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
