@@ -808,6 +808,20 @@ const CPUCoolingSimulation = () => {
             />
           </div>
           
+          {/* <div className="flex md:flex-row flex-col gap-4 md:gap-6">
+          <div className="md:w-[60%] w-full">
+            <div className={`rounded-xl md:rounded-3xl p-2 ${isLightMode ? 'bg-white/70 border border-blue-200' : ' bg-black backdrop-blur border border-slate-700/50'}`}>
+              <div className="relative pb-[100%] w-full">
+                <canvas
+                  ref={canvasRef}
+                  width={1200}
+                  height={1200}
+                  className="absolute inset-0 w-full h-full rounded-lg md:rounded-2xl shadow-2xl"
+                />
+              </div>
+            </div>
+          </div> */}
+
           <div className="md:h-full md:overflow-y-auto pb-4 md:pb-8">
             <div className="flex-col gap-4 md:gap-6">
               <div className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl border border-slate-700/50">

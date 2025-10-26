@@ -30,10 +30,6 @@ const CPUCoolingSimulation = () => {
   const toggleLightMode = () => {
     setIsLightMode(!isLightMode);
   };
-  // hitung dulu
-  const exponentValue = Math.exp(-k * time); // e^(-k*t)
-  const computedTemp = Tambient + (T0 - Tambient) * exponentValue;
-
 
 
   // Load images
@@ -916,11 +912,10 @@ const CPUCoolingSimulation = () => {
         </svg>
       </button>
 
-      <div className={`informationBox w-screen h-screen fixed top-0 left-0 backdrop-blur-md z-40 flex flex-col items-center justify-center p-4 text-center transition-colors duration-300 ${isLightMode ? 'bg-slate-900/20' : 'bg-black/50'
-        }`} style={{ display: 'none' }}>
-        <div className={`textBox w-full max-w-lg p-6 rounded-2xl flex flex-col items-center justify-center shadow-2xl transition-all duration-300 ${isLightMode
-          ? 'bg-white/95 text-slate-800 border border-blue-200'
-          : 'bg-slate-900/95 text-white border border-slate-700'
+      <div className={`informationBox w-screen h-screen fixed top-0 left-0 backdrop-blur-[10px] z-40 flex flex-col items-center justify-center p-4 text-center transition-colors duration-300 bg-black/50`} style={{ display: 'none' }}>
+        <div className={`textBox w-full max-w-lg p-6 rounded-2xl rounded-lg animate__animated animate__jackInTheBox flex flex-col items-center justify-center shadow-2xl transition-all duration-300 ${isLightMode
+          ? ' bg-white text-slate-800 border border-blue-200 '
+          : ' bg-black text-white border-orange-900 border  '
           }`}>
           <h2 className={`text-xl md:text-3xl font-bold mb-4 ${isLightMode
             ? 'bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800'
@@ -957,7 +952,7 @@ const CPUCoolingSimulation = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto md:h-screen flex flex-col">
+      <div style={{maxWidth : 1350}} className=" mx-auto md:h-screen flex flex-col">
         <div className="text-center mb-4 md:mb-8 flex-0">
           <h1 className={`text-2xl md:text-4xl font-bold mb-2 md:mb-3 bg-gradient-to-r ${isLightMode ? 'from-blue-600 via-indigo-700 to-purple-800' : 'from-cyan-400 via-blue-500 to-purple-600'} bg-clip-text text-transparent`}>
             SIMULASI SISTEM PENDINGINAN CPU
@@ -967,18 +962,22 @@ const CPUCoolingSimulation = () => {
           </p>
         </div>
 
-        <div className="flex md:flex-row flex-col flex-1 justify-between overflow-hidden md:max-h-full gap-4 md:gap-6">
-          <div className={`rounded-xl md:rounded-3xl max-h-[900px] p-2 mb-4 md:mb-8  ${isLightMode ? 'bg-white/70 border border-blue-200' : ' bg-black backdrop-blur border border-slate-700/50'}`}>
-            <canvas
-              ref={canvasRef}
-              width={1200}
-              height={1200}
-              className="w-full h-full rounded-lg md:rounded-2xl shadow-2xl"
-            />
+        <div className="flex md:flex-row flex-col gap-4 md:gap-6">
+          <div className="flex-1 w-full">
+            <div className={`rounded-xl md:rounded-3xl p-2 ${isLightMode ? 'bg-white/70 border border-blue-200' : ' bg-black backdrop-blur border border-slate-700/50'}`}>
+              <div className="relative pb-[100%] w-full">
+                <canvas
+                  ref={canvasRef}
+                  width={1200}
+                  height={1200}
+                  className="absolute inset-0 w-full h-full rounded-lg md:rounded-2xl shadow-2xl"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="md:h-full w-full md:max-w-md md:overflow-y-auto pb-4 md:pb-8">
-            <div className="flex-col gap-4 flex md:gap-6">
+          <div style={{maxWidth: 460}} className="md:h-full md:overflow-y-hidden pb-4 md:pb-8">
+            <div className="flex-col  gap-4 flex md:gap-6">
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/70 border border-blue-200' : 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur border border-slate-700/50'}`}>
                 <div className="flex justify-between items-center mb-4 md:mb-6">
                   <h3 className={`text-xl md:text-2xl font-bold flex items-center gap-2 md:gap-3 ${isLightMode ? 'text-slate-800' : 'text-white'}`}>
@@ -1016,7 +1015,7 @@ const CPUCoolingSimulation = () => {
 
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/70 border border-blue-200' : 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur border border-slate-700/50'}`}>
                 <div
-                  className="flex justify-between items-center  cursor-pointer"
+                  className="flex justify-between items-center cursor-pointer"
                   onClick={() => {
                     if (isRunning) {
                       setParamManuallyOpened(!paramManuallyOpened);
@@ -1025,7 +1024,7 @@ const CPUCoolingSimulation = () => {
                     }
                   }}
                 >
-                  <h3 className={`text-xl md:text-2xl font-bold flex items-center gap-2 md:gap-3 ${isLightMode ? 'text-slate-800' : 'text-white'}`}>
+                  <h3 className={`text-xl md:text-2xl font-bold  flex items-center gap-2 md:gap-3 ${isLightMode ? 'text-slate-800' : 'text-white'}`}>
                     <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg flex items-center justify-center shadow-lg ${isLightMode ? 'bg-gradient-to-br from-blue-400 to-indigo-500' : 'bg-gradient-to-br from-blue-500 to-purple-600'}`}>
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -1052,10 +1051,10 @@ const CPUCoolingSimulation = () => {
                   </div>
                 </div>
 
-                <div className={`overflow-hidden transition-all duration-500 ease-in-out ${(isRunning ? paramManuallyOpened : isParamOpen) ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
-                  <div className="space-y-4 md:space-y-6 mb-6 md:mb-8">
+                <div className={`overflow-hidden transition-all duration-500  ease-in-out ${(isRunning ? paramManuallyOpened : isParamOpen) ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div className="space-y-4 md:space-y-6 mb-6 md:mb-8 mt-4 md:mt-6">
                     {/* Konten parameter tetap sama */}
-                    <div className={`rounded-xl mt-4 md:mt-6 md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-gradient-to-br from-red-100 to-orange-200 border border-red-300' : 'bg-gradient-to-br from-red-500/20 to-orange-600/20 backdrop-blur border border-red-500/30'}`}>
+                    <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-gradient-to-br from-red-100 to-orange-200 border border-red-300' : 'bg-gradient-to-br from-red-500/20 to-orange-600/20 backdrop-blur border border-red-500/30'}`}>
                       <div className="flex justify-between items-center mb-3">
                         <div>
                           <p className={isLightMode ? 'text-slate-700 text-sm md:text-base font-semibold' : 'text-slate-300 text-sm md:text-base font-semibold'}>Suhu Awal CPU</p>
@@ -1146,15 +1145,10 @@ const CPUCoolingSimulation = () => {
                   Newton's Law of Cooling
                 </h4>
 
-                <div className={`rounded-lg md:rounded-xl p-2 md:p-6 mb-4 md:mb-6 ${isLightMode ? 'bg-blue-50 border border-blue-200' : 'bg-slate-950/70 text-nowrap backdrop-blur border border-purple-500/20'}`}>
-                  <p className={`text-[1rem] text-center font-mono font-bold ${isLightMode
-                      ? 'text-slate-800'
-                      : 'text-white drop-shadow-[0_0_10px_rgba(0,180,255,0.7)]'
-                    }`}>
-                    T(t) {computedTemp.toFixed(2)} = <br></br> {Tambient} + ({T0} − {Tambient}) × e^(-{k}·{time.toFixed(2)})
+                <div className={`rounded-lg md:rounded-xl p-4 md:p-6 mb-4 md:mb-6 ${isLightMode ? 'bg-blue-50 border border-blue-200' : 'bg-slate-950/70 backdrop-blur border border-purple-500/20'}`}>
+                  <p className={`text-xl md:text-xl text-center font-mono font-bold ${isLightMode ? 'bg-gradient-to-r from-emerald-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent' : 'bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent'}`}>
+                    T({time.toFixed(1)}) = {Tambient} + ({T0} - {Tambient}) × e<sup className="text-sm md:text-xl">-{k}×{time.toFixed(1)}</sup> = {temp.toFixed(1)}°C
                   </p>
-
-
                 </div>
 
                 <div className="space-y-3">
@@ -1290,10 +1284,7 @@ const CPUCoolingSimulation = () => {
           border: 2px solid #fff;
           box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
-        .auto-text {
-  font-size: clamp(0.75rem, 2vw, 1.25rem);
-}
-
+        
         .slider-red::-moz-range-thumb,
         .slider-blue::-moz-range-thumb,
         .slider-green::-moz-range-thumb {
