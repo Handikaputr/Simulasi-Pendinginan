@@ -918,7 +918,7 @@ const CPUCoolingSimulation = () => {
 
       <div className={`informationBox w-screen h-screen fixed top-0 left-0 backdrop-blur-md z-40 flex flex-col items-center justify-center p-4 text-center transition-colors duration-300 ${isLightMode ? 'bg-slate-900/20' : 'bg-black/50'
         }`} style={{ display: 'none' }}>
-        <div className={`textBox w-full max-w-lg p-6 rounded-2xl flex flex-col items-center justify-center shadow-2xl transition-all duration-300 ${isLightMode
+        <div className={`textBox w-full max-w-lg p-6 rounded-2xl flex animate__animated animate__jackInTheBox flex-col items-center justify-center shadow-2xl transition-all duration-300 ${isLightMode
           ? 'bg-white/95 text-slate-800 border border-blue-200'
           : 'bg-slate-900/95 text-white border border-slate-700'
           }`}>
