@@ -847,7 +847,7 @@ const CPUCoolingSimulation = () => {
     setParamManuallyOpened(false);
   };
 
-  const handleParamChange = (param, value) => {
+  const handleParamChange = (param: 'T0' | 'Tambient' | 'k', value: number) => {
     let validatedValue = value;
 
     switch (param) {
