@@ -24,7 +24,7 @@ const CPUCoolingSimulation = () => {
   useEffect(() => {
     if (typeof window !== 'undefined' && window.matchMedia) {
       const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-      const handleChange = (e) => setIsLightMode(e.matches);
+      const handleChange = (e: MediaQueryListEvent) => setIsLightMode(e.matches);
 
       mediaQuery.addEventListener('change', handleChange);
       return () => mediaQuery.removeEventListener('change', handleChange);
