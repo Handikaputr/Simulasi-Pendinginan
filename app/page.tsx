@@ -12,7 +12,25 @@ const CPUCoolingSimulation = () => {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<ReturnType<typeof setInterval> | null>(null);
-  const [isLightMode, setIsLightMode] = useState(false); // State untuk mode terang
+  const [isLightMode, setIsLightMode] = useState(() => {
+    // Cek preferensi sistem pengguna
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      return window.matchMedia('(prefers-color-scheme: light)').matches;
+    }
+    return false; // Default ke dark mode jika tidak bisa deteksi
+  });
+
+  // Tambahkan useEffect untuk memantau perubahan preferensi sistem
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+      const handleChange = (e) => setIsLightMode(e.matches);
+
+      mediaQuery.addEventListener('change', handleChange);
+      return () => mediaQuery.removeEventListener('change', handleChange);
+    }
+  }, []);
+
 
   // Image refs
   const cpuImageRef = useRef<HTMLImageElement | null>(null);
@@ -917,7 +935,7 @@ const CPUCoolingSimulation = () => {
       </button>
 
       <div className={`informationBox w-screen h-screen fixed top-0 left-0 backdrop-blur-md z-40 flex flex-col items-center justify-center p-4 text-center transition-colors duration-300 ${isLightMode ? 'bg-slate-900/20' : 'bg-black/50'
-        }`} style={{ display: 'none' }}>
+        }`} style={{ display: 'flex' }}>
         <div className={`textBox w-full max-w-lg p-6 rounded-2xl flex animate__animated animate__jackInTheBox flex-col items-center justify-center shadow-2xl transition-all duration-300 ${isLightMode
           ? 'bg-white/95 text-slate-800 border border-blue-200'
           : 'bg-slate-900/95 text-white border border-slate-700'
