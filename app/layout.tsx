@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "simulasi panas",
     "Q=hAΔT",
   ],
-  authors: [{ name: "Handika" }],
+  authors: [{ name: "Kelompok 2 - TI UNY" }],
   openGraph: {
     title: "Simulasi Pendinginan CPU/Server",
     description:
