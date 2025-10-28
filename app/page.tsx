@@ -212,16 +212,12 @@ const CPUCoolingSimulation = () => {
             ctx.strokeStyle = `rgba(234, 179, 8, ${0.3 + tempRatio * 0.5})`;
             ctx.fillStyle = `rgba(234, 179, 8, ${0.3 + tempRatio * 0.5})`;
             ctx.lineWidth = 4;
-            drawRightArrow(ctx, centerX - dx - 40, hsY + 80, centerX - dx, hsY + 80);
-            drawRightArrow(ctx, centerX - dx - 40, hsY + 110, centerX - dx, hsY + 110);
             drawRightArrow(ctx, centerX + dx - 40, hsY + 80, centerX + dx, hsY + 80);
             drawRightArrow(ctx, centerX + dx - 40, hsY + 110, centerX + dx, hsY + 110);
           }
         }
       }
-    } else {
-
-    }
+    } 
 
     // ============ CPU CHIP ============
     drawCPU(ctx, centerX, centerY);
@@ -1291,7 +1287,7 @@ const CPUCoolingSimulation = () => {
                           e<sup>−k·t</sup> = 2.718<sup>{(-k * time).toFixed(4)}</sup>
                         </div>
                         <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
-                          e<sup>−k·t</sup> = <span className="font-bold text-orange-500">{Math.exp(-k * time).toFixed(6)}</span>
+                          e<sup>−k·t</sup> = <span className="font-bold text-orange-500">{Math.exp(-k * time).toFixed(3)}</span>
                         </div>
                       </div>
 
@@ -1301,10 +1297,10 @@ const CPUCoolingSimulation = () => {
                           Langkah 3: Kalikan ΔT dengan faktor peluruhan
                         </div>
                         <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
-                          ΔT × e<sup>−k·t</sup> = {(T0 - Tambient).toFixed(2)} × {Math.exp(-k * time).toFixed(6)}
+                          ΔT × e<sup>−k·t</sup> = {(T0 - Tambient).toFixed(2)} × {Math.exp(-k * time).toFixed(3)}
                         </div>
                         <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
-                          = <span className="font-bold text-orange-500">{((T0 - Tambient) * Math.exp(-k * time)).toFixed(4)}°C</span>
+                          = <span className="font-bold text-orange-500">{((T0 - Tambient) * Math.exp(-k * time)).toFixed(3)}°C</span>
                         </div>
                       </div>
 
