@@ -315,8 +315,8 @@ const CPUCoolingSimulation = () => {
         ctx.shadowColor = isLightMode ? 'transparent' : '#eab308';
 
         ctx.textAlign = 'right';
-        ctx.fillText('Konveksi', centerX - 260, hsY + 85);
-        ctx.fillText('Paksa →', centerX - 260, hsY + 115);
+        ctx.fillText('Konveksi', centerX - 160, hsY + 85);
+        ctx.fillText('Paksa →', centerX - 160, hsY + 115);
 
 
 
@@ -441,7 +441,7 @@ const CPUCoolingSimulation = () => {
       ctx.font = 'bold 13px sans-serif';
       const lines = step.label.split('\n');
       lines.forEach((line, li) => {
-        ctx.fillText(line, step.x, step.y + 55 + li * 18);
+        ctx.fillText(line, step.x, step.y + 65 + li * 18);
       });
 
       // Connecting arrow
@@ -1313,7 +1313,7 @@ const CPUCoolingSimulation = () => {
                           T(t) = T<sub>ambient</sub> + ΔT × e<sup>−k·t</sup>
                         </div>
                         <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
-                          T(t) = {Tambient}°C + {((T0 - Tambient) * Math.exp(-k * time)).toFixed(4)}°C
+                          T(t) = {Tambient}°C + {((T0 - Tambient) * Math.exp(-k * time)).toFixed(3)}°C
                         </div>
                         <div className={`font-mono text-lg md:text-xl mt-2 font-bold ${isLightMode ? 'text-blue-700' : 'text-cyan-400'}`}>
                           = {computedTemp.toFixed(2)}°C
