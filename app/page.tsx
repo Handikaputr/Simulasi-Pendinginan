@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, RotateCcw, Sun, Moon } from 'lucide-react';
+import { Play, Pause, RotateCcw, Sun, Moon, ArrowDown, ArrowUp } from 'lucide-react';
 import 'animate.css';
 const CPUCoolingSimulation = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -9,6 +9,7 @@ const CPUCoolingSimulation = () => {
   const [params, setParams] = useState({ T0: 80, Tambient: 25, k: 0.15 });
   const [isParamOpen, setIsParamOpen] = useState(true);
   const [paramManuallyOpened, setParamManuallyOpened] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -47,6 +48,10 @@ const CPUCoolingSimulation = () => {
   // Fungsi untuk toggle mode terang/gelap
   const toggleLightMode = () => {
     setIsLightMode(!isLightMode);
+  };
+
+  const toggleInfoDetails = () => {
+    setDetailsOpen(!detailsOpen);
   };
   // hitung dulu
   const exponentValue = Math.exp(-k * time); // e^(-k*t)
@@ -895,7 +900,7 @@ const CPUCoolingSimulation = () => {
       {/* Tombol Toggle Mode Terang/Gelap */}
       <button
         onClick={toggleLightMode}
-        className="fixed top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
+        className="fixed hidden  top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 md:flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
       >
         {isLightMode ? (
           <Moon size={24} className="text-white" />
@@ -904,7 +909,6 @@ const CPUCoolingSimulation = () => {
         )}
       </button>
 
-      {/* Tombol Info - tetap ada */}
       <button
         onClick={() => {
           const infoBox = document.querySelector('.informationBox') as HTMLDivElement;
@@ -913,7 +917,7 @@ const CPUCoolingSimulation = () => {
           }
         }}
         id='tombolInfo'
-        className={`fixed top-5 left-5 z-40 w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${isLightMode
+        className={`fixed top-5 left-5 z-40 w-12 h-12 rounded-full hidden md:flex items-center justify-center shadow-lg transition-all duration-300 ${isLightMode
           ? 'bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700'
           : 'bg-gradient-to-br from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800'
           }`}
@@ -984,7 +988,47 @@ const CPUCoolingSimulation = () => {
             Newton's Law of Cooling - Visualisasi Interaktif
           </p>
         </div>
+        <div className="flex px-3 gap-4 w-full justify-center mb-4 md:hidden">
+          <button
+            onClick={toggleLightMode}
+            className="f  w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
+          >
+            {isLightMode ? (
+              <Moon size={24} className="text-white" />
+            ) : (
+              <Sun size={24} className="text-white" />
+            )}
+          </button>
 
+          <button
+            onClick={() => {
+              const infoBox = document.querySelector('.informationBox') as HTMLDivElement;
+              if (infoBox) {
+                infoBox.style.display = 'flex';
+              }
+            }}
+            id='tombolInfo'
+            className={`   w-12 h-12 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 ${isLightMode
+              ? 'bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700'
+              : 'bg-gradient-to-br from-indigo-600 to-purple-700 hover:from-indigo-700 hover:to-purple-800'
+              }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="white"
+              strokeWidth="2"
+              className="text-white"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </button>
+        </div>
         <div className="flex md:flex-row flex-col flex-1 justify-between overflow-hidden md:max-h-full gap-4 md:gap-6">
           <div className={`rounded-xl md:rounded-3xl max-h-[900px] p-2 mb-4 md:mb-8  ${isLightMode ? 'bg-white/70 border border-blue-200' : ' bg-black backdrop-blur border border-slate-700/50'}`}>
             <canvas
@@ -1089,7 +1133,7 @@ const CPUCoolingSimulation = () => {
                         max="100"
                         step="1"
                         value={T0}
-                        onChange={(e) => handleParamChange('T0', Number(e.target.value))}
+                        onChange={(e) => {handleParamChange('T0', Number(e.target.value)); handleReset();}}
                         disabled={isRunning}
                         className={`w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-red ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
                       />
@@ -1116,7 +1160,7 @@ const CPUCoolingSimulation = () => {
                         max="35"
                         step="1"
                         value={Tambient}
-                        onChange={(e) => handleParamChange('Tambient', Number(e.target.value))}
+                        onChange={(e) => {handleParamChange('Tambient', Number(e.target.value)); handleReset();}}
                         disabled={isRunning}
                         className={`w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-blue ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
                       />
@@ -1145,7 +1189,7 @@ const CPUCoolingSimulation = () => {
                         max="0.3"
                         step="0.01"
                         value={k}
-                        onChange={(e) => handleParamChange('k', Number(e.target.value))}
+                        onChange={(e) => {handleParamChange('k', Number(e.target.value)); handleReset();}}
                         disabled={isRunning}
                         className={`w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer slider-green ${isRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
                       />
@@ -1164,16 +1208,126 @@ const CPUCoolingSimulation = () => {
                   Newton's Law of Cooling
                 </h4>
 
-                <div className={`rounded-lg md:rounded-xl p-2 md:p-6 mb-4 md:mb-6 ${isLightMode ? 'bg-blue-50 border border-blue-200' : 'bg-slate-950/70 text-nowrap backdrop-blur border border-purple-500/20'}`}>
-                  <p className={`text-[1rem] text-center font-mono font-bold ${isLightMode
-                    ? 'text-slate-800'
-                    : 'text-white drop-shadow-[0_0_10px_rgba(0,180,255,0.7)]'
-                    }`}>
-                    T(t) {computedTemp.toFixed(2)} = <br></br> {Tambient} + ({T0} − {Tambient}) × e^(-{k}·{time.toFixed(2)})
-                  </p>
+                <div
+                className={`rounded-lg md:rounded-xl relative p-4 md:p-6 mb-4 md:mb-6 ${
+                  isLightMode
+                    ? 'bg-blue-50 border border-blue-200'
+                    : 'bg-slate-950/70 backdrop-blur border border-purple-500/20'
+                }`}
+              >
+                <button 
+                  className="absolute top-3 right-3 p-1 rounded-lg hover:bg-black/10 transition-colors" 
+                  onClick={toggleInfoDetails}
+                  aria-label="Toggle details"
+                >
+                  {!detailsOpen ? (
+                    <ArrowDown
+                      size={22}
+                      className={`${
+                        isLightMode
+                          ? 'text-blue-500 hover:text-blue-700'
+                          : 'text-purple-400 hover:text-purple-300'
+                      }`}
+                    />
+                  ) : (
+                    <ArrowUp
+                      size={22}
+                      className={`${
+                        isLightMode
+                          ? 'text-blue-500 hover:text-blue-700'
+                          : 'text-purple-400 hover:text-purple-300'
+                      }`}
+                    />
+                  )}
+                </button>
 
+                {!detailsOpen ? (
+                  <div className="text-center pr-8">
+                    <div className={`text-xs md:text-sm mb-2 ${isLightMode ? 'text-blue-600' : 'text-purple-300'}`}>
+                      Hasil Perhitungan
+                    </div>
+                    <div
+                      className={`text-2xl md:text-3xl font-bold mb-3 ${
+                        isLightMode
+                          ? 'text-blue-600'
+                          : 'text-cyan-400 drop-shadow-[0_0_10px_rgba(0,180,255,0.5)]'
+                      }`}
+                    >
+                      T(t) = {computedTemp.toFixed(2)}°C
+                    </div>
+                    <div className={`text-xs md:text-sm font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-300'}`}>
+                      {Tambient} + ({T0} − {Tambient}) × e<sup>−{k}·{time.toFixed(2)}</sup>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="">
+                    <div className={`text-sm md:text-base font-semibold mb-4 ${isLightMode ? 'text-blue-700' : 'text-purple-300'}`}>
+                      📊 Langkah-langkah Perhitungan
+                    </div>
+                    
+                    <div className="space-y-4 w-full text-sm  md:text-base">
+                      {/* Step 1 */}
+                      <div className={`p-3 rounded-lg w-full ${isLightMode ? 'bg-white/60' : 'bg-slate-900/50'}`}>
+                        <div className={`text-xs mb-1 ${isLightMode ? 'text-blue-600' : 'text-cyan-400'}`}>
+                          Langkah 1: Hitung selisih suhu awal
+                        </div>
+                        <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          ΔT = T₀ − T<sub>ambient</sub>
+                        </div>
+                        <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          ΔT = {T0}°C − {Tambient}°C = <span className="font-bold text-orange-500">{(T0 - Tambient).toFixed(2)}°C</span>
+                        </div>
+                      </div>
 
-                </div>
+                      {/* Step 2 */}
+                      <div className={`p-3 rounded-lg ${isLightMode ? 'bg-white/60' : 'bg-slate-900/50'}`}>
+                        <div className={`text-xs mb-1 ${isLightMode ? 'text-blue-600' : 'text-cyan-400'}`}>
+                          Langkah 2: Hitung faktor peluruhan eksponensial
+                        </div>
+                        <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          e<sup>−k·t</sup> = 2.718<sup>−{k}×{time.toFixed(2)}</sup>
+                        </div>
+                        <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          e<sup>−k·t</sup> = 2.718<sup>{(-k * time).toFixed(4)}</sup>
+                        </div>
+                        <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          e<sup>−k·t</sup> = <span className="font-bold text-orange-500">{Math.exp(-k * time).toFixed(6)}</span>
+                        </div>
+                      </div>
+
+                      {/* Step 3 */}
+                      <div className={`p-3 rounded-lg ${isLightMode ? 'bg-white/60' : 'bg-slate-900/50'}`}>
+                        <div className={`text-xs mb-1 ${isLightMode ? 'text-blue-600' : 'text-cyan-400'}`}>
+                          Langkah 3: Kalikan ΔT dengan faktor peluruhan
+                        </div>
+                        <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          ΔT × e<sup>−k·t</sup> = {(T0 - Tambient).toFixed(2)} × {Math.exp(-k * time).toFixed(6)}
+                        </div>
+                        <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          = <span className="font-bold text-orange-500">{((T0 - Tambient) * Math.exp(-k * time)).toFixed(4)}°C</span>
+                        </div>
+                      </div>
+
+                      {/* Step 4 */}
+                      <div className={`p-3 rounded-lg ${isLightMode ? 'bg-blue-100 border-2 border-blue-300' : 'bg-purple-900/30 border-2 border-purple-500/50'}`}>
+                        <div className={`text-xs mb-1 ${isLightMode ? 'text-blue-700' : 'text-purple-300'}`}>
+                          Langkah 4: Tambahkan suhu lingkungan (Hasil Akhir)
+                        </div>
+                        <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          T(t) = T<sub>ambient</sub> + ΔT × e<sup>−k·t</sup>
+                        </div>
+                        <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
+                          T(t) = {Tambient}°C + {((T0 - Tambient) * Math.exp(-k * time)).toFixed(4)}°C
+                        </div>
+                        <div className={`font-mono text-lg md:text-xl mt-2 font-bold ${isLightMode ? 'text-blue-700' : 'text-cyan-400'}`}>
+                          = {computedTemp.toFixed(2)}°C
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
 
                 <div className="space-y-3">
                   <div className="hidden md:block">
@@ -1211,6 +1365,11 @@ const CPUCoolingSimulation = () => {
                             <td className={`px-4 py-3 font-mono text-lg ${isLightMode ? 'text-purple-600' : 'text-purple-400'}`}>t</td>
                             <td className={`px-4 py-3 ${isLightMode ? 'text-slate-700' : ''}`}>Waktu (detik)</td>
                             <td className={`px-4 py-3 ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{time.toFixed(1)}s</td>
+                          </tr>
+                          <tr className={isLightMode ? 'hover:bg-blue-50' : 'hover:bg-slate-900/30'}>
+                            <td className={`px-4 py-3 font-mono text-lg ${isLightMode ? 'text-purple-600' : 'text-purple-400'}`}>e</td>
+                            <td className={`px-4 py-3 ${isLightMode ? 'text-slate-700' : ''}`}>Konstanta Euler</td>
+                            <td className={`px-4 py-3 ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>2.718</td>
                           </tr>
                         </tbody>
                       </table>
@@ -1287,6 +1446,8 @@ const CPUCoolingSimulation = () => {
       </div>
 
       <style jsx>{`
+
+       
         .slider-red::-webkit-slider-thumb {
           appearance: none;
           height: 20px;
