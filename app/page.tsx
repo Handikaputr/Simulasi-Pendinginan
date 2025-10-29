@@ -318,9 +318,6 @@ const CPUCoolingSimulation = () => {
         ctx.fillText('Konveksi', centerX - 160, hsY + 85);
         ctx.fillText('Paksa →', centerX - 160, hsY + 115);
 
-
-
-
       }
 
     } else {
@@ -1284,7 +1281,7 @@ const CPUCoolingSimulation = () => {
                           e<sup>−k·t</sup> = 2.718<sup>−{k}×{time.toFixed(2)}</sup>
                         </div>
                         <div className={`font-mono ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
-                          e<sup>−k·t</sup> = 2.718<sup>{(-k * time).toFixed(4)}</sup>
+                          e<sup>−k·t</sup> = 2.718<sup>{(-k * time).toFixed(3)}</sup>
                         </div>
                         <div className={`font-mono mt-1 ${isLightMode ? 'text-slate-700' : 'text-white'}`}>
                           e<sup>−k·t</sup> = <span className="font-bold text-orange-500">{Math.exp(-k * time).toFixed(3)}</span>
@@ -1430,6 +1427,17 @@ const CPUCoolingSimulation = () => {
                           Waktu
                         </div>
                         <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>{time.toFixed(1)}s</div>
+                      </div>
+                    </div>
+                    <div className={`rounded-lg p-3 flex items-start gap-3 ${isLightMode ? 'bg-blue-50' : 'bg-slate-900/40'}`}>
+                      <div className="flex-shrink-0 w-12">
+                        <div className={`font-mono text-lg ${isLightMode ? 'text-purple-600' : 'text-purple-400'}`}>e</div>
+                      </div>
+                      <div className="flex-1">
+                        <div className={`text-sm font-semibold ${isLightMode ? 'text-slate-800' : 'text-slate-200'}`}>
+                          Konstanta Euler
+                        </div>
+                        <div className={`text-xs ${isLightMode ? 'text-slate-600' : 'text-slate-400'}`}>2.718</div>
                       </div>
                     </div>
                   </div>
