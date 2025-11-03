@@ -185,11 +185,11 @@ const CPUCoolingSimulation = () => {
   const computedTemp = Tambient + (T0 - Tambient) * exponentValue;
 
   return (
-    <div className={`w-full min-h-screen md:h-screen overflow-hidden p-4 md:p-6 ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
+    <div className={`w-full min-h-screen 2xl:h-screen overflow-hidden p-4 md:p-6 ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
       {/* Tombol Toggle Mode Terang/Gelap */}
       <button
         onClick={toggleLightMode}
-        className="fixed hidden  top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 md:flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
+        className="fixed hidden  top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 2xl:flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
       >
         {isLightMode ? (
           <Moon size={24} className="text-white" />
@@ -268,7 +268,7 @@ const CPUCoolingSimulation = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto md:h-screen flex flex-col">
+      <div className="max-w-7xl mx-auto 2xl:h-screen flex flex-col">
         <div className="text-center mb-4 md:mb-8 flex-0">
           <h1 className={`text-2xl md:text-4xl font-bold mb-2 md:mb-3 bg-gradient-to-r ${isLightMode ? 'from-blue-600 via-indigo-700 to-purple-800' : 'from-cyan-400 via-blue-500 to-purple-600'} bg-clip-text text-transparent`}>
             SIMULASI SISTEM PENDINGINAN CPU
@@ -318,8 +318,8 @@ const CPUCoolingSimulation = () => {
             </svg>
           </button>
         </div>
-        <div className="flex md:flex-row flex-col flex-1 justify-between overflow-hidden md:max-h-full gap-4 md:gap-6">
-          <div className={`flex w-full shadow-md  ${ isLightMode ? "bg-slate-100" : "bg-gradient-to-b from-[#050814] to-[#0f1729]"} h-fit p-2 md:p-4 rounded-md md:rounded-xl flex-col`}>
+        <div className="flex 2xl:flex-row flex-col flex-1 justify-between overflow-hidden 2xl:max-h-full gap-4 md:gap-6">
+          <div className={`flex w-full border shadow-md rounded-lg  ${ isLightMode ? "bg-white border-slate-200" : "bg-gradient-to-b from-[#050814] to-[#0f1729] border-slate-700"} h-fit p-2  md:p-4 rounded-md md:rounded-xl flex-col`}>
             <CPUCoolingIllustration 
     temp={temp}
     time={time}
@@ -337,7 +337,7 @@ const CPUCoolingSimulation = () => {
           </AspectRatio>
           </div>
               
-          <div className="md:h-full w-full md:max-w-md md:overflow-y-auto pb-4 md:pb-8">
+          <div className="2xl:h-full w-full 2xl:max-w-md 2xl:overflow-y-auto pb-4 md:pb-8">
             <div className="flex-col gap-4 flex md:gap-6">
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/70 border border-blue-200' : 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur border border-slate-700/50'}`}>
                 <div className="flex justify-between items-center mb-4 md:mb-6">
@@ -358,7 +358,7 @@ const CPUCoolingSimulation = () => {
                 <div className="flex gap-3 md:gap-4">
                   <button
                     onClick={() => setIsRunning(!isRunning)}
-                    className={`flex-1 flex items-center justify-center gap-2 md:gap-4 rounded-xl md:rounded-2xl font-bold text-base md:text-xl transition-all shadow-2xl hover:scale-105 ${isLightMode ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 hover:from-blue-600 hover:via-indigo-700 hover:to-purple-800 text-white px-4 md:px-8 py-3 md:py-4' : 'bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 hover:from-blue-700 hover:via-blue-800 hover:to-purple-700 text-white px-4 md:px-8 py-3 md:py-4'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 md:gap-4 rounded-xl md:rounded-2xl font-bold text-base md:text-xl transition-all shadow-2xl 2xl:hover:scale-105 ${isLightMode ? 'bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 hover:from-blue-600 hover:via-indigo-700 hover:to-purple-800 text-white px-4 md:px-8 py-3 md:py-4' : 'bg-gradient-to-r from-blue-600 via-blue-700 to-purple-600 hover:from-blue-700 hover:via-blue-800 hover:to-purple-700 text-white px-4 md:px-8 py-3 md:py-4'}`}
                   >
                     {isRunning ? <Pause size={20} className="md:hidden" /> : <Play size={20} className="md:hidden" />}
                     {isRunning ? <Pause size={24} className="hidden md:block" /> : <Play size={24} className="hidden md:block" />}
