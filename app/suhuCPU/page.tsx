@@ -2,7 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Sun, Moon, ArrowDown, ArrowUp } from 'lucide-react';
 import 'animate.css';
-import { drawScene, calculateTemp } from './component/ilustrator';
+import AspectRatio from '@mui/joy/AspectRatio';
+import { drawScene,   calculateTemp } from '../component/ilustrator';
+import CPUCoolingIllustration from '../component/CPUCoolingIllustration';
 
 const CPUCoolingSimulation = () => {
   const [isRunning, setIsRunning] = useState(false);
@@ -317,15 +319,24 @@ const CPUCoolingSimulation = () => {
           </button>
         </div>
         <div className="flex md:flex-row flex-col flex-1 justify-between overflow-hidden md:max-h-full gap-4 md:gap-6">
-          <div className={`rounded-xl md:rounded-3xl max-h-[900px] p-2 mb-4 md:mb-8  ${isLightMode ? 'bg-white/70 border border-blue-200' : ' bg-black backdrop-blur border border-slate-700/50'}`}>
+          <div className={`flex w-full shadow-md  ${ isLightMode ? "bg-slate-100" : "bg-gradient-to-b from-[#050814] to-[#0f1729]"} h-fit p-2 md:p-4 rounded-md md:rounded-xl flex-col`}>
+            <CPUCoolingIllustration 
+    temp={temp}
+    time={time}
+    isRunning={isRunning}
+    params={params}
+    isLightMode={isLightMode}
+  />
+          <AspectRatio ratio={4/1} className="box w-full bg-unset p-4 ">
             <canvas
               ref={canvasRef}
-              width={1200}
-              height={1200}
-              className="w-full h-full rounded-lg md:rounded-2xl shadow-2xl"
+              width={1000}
+              height={250}
+              className="w-full h-full  bg-transparent shadow-2xl"
             />
+          </AspectRatio>
           </div>
-
+              
           <div className="md:h-full w-full md:max-w-md md:overflow-y-auto pb-4 md:pb-8">
             <div className="flex-col gap-4 flex md:gap-6">
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/70 border border-blue-200' : 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur border border-slate-700/50'}`}>
