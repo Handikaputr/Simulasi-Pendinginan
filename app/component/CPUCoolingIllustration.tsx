@@ -419,9 +419,9 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                         </>
                     )}
 
-                    {k > 0.2 && isRunning || time != 0 && k > 0.2 && (
+                    {k > 0.2 && (
                         <div
-                            className={`absolute duration-500 ${isRunning && time != 0 ? "top-[50%] opacity-100 left-[18%] " : "top-[55%] opacity-0 left-[25%] "} text-left font-bold text-[clamp(0.5rem,1.2vw,0.8rem)]`}
+                            className={`absolute duration-500 ${time != 0 ? "top-[50%] opacity-100 left-[18%] " : "top-[55%] opacity-0 left-[25%] "} text-left font-bold text-[clamp(0.5rem,1.2vw,0.8rem)]`}
                             style={{
                                 color: isLightMode ? '#854d0e' : '#eab308',
                                 textShadow: isLightMode ? 'none' : '0 0 8px rgba(234, 179, 8, 0.8)'
