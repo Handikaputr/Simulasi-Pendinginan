@@ -20,6 +20,9 @@ const CPUCoolingSimulation = () => {
     }
     return false;
   });
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [stepMode, setStepMode] = useState(false);
+  const [simulationSpeed, setSimulationSpeed] = useState(1); // Speed multiplier dari child component
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -125,7 +128,7 @@ const CPUCoolingSimulation = () => {
           setTemp(calculateTemp(newTime, params));
           return newTime;
         });
-      }, 100);
+      }, 100 / simulationSpeed); // BAGI dengan simulationSpeed (0.5x = lambat, 2x = cepat)
     } else {
       if (animationRef.current) {
         clearInterval(animationRef.current);
@@ -137,7 +140,7 @@ const CPUCoolingSimulation = () => {
         clearInterval(animationRef.current);
       }
     };
-  }, [isRunning, params]);
+  }, [isRunning, params, simulationSpeed]);
 
   const handleReset = () => {
     setIsRunning(false);
@@ -185,11 +188,11 @@ const CPUCoolingSimulation = () => {
   const computedTemp = Tambient + (T0 - Tambient) * exponentValue;
 
   return (
-    <div className={`w-full min-h-screen 2xl:h-screen overflow-hidden p-4 md:p-6 ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
+    <div className={`w-full min-h-screen ${isFullscreen ? '' : '2xl:h-screen'} overflow-hidden p-4 md:p-6 ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
       {/* Tombol Toggle Mode Terang/Gelap */}
       <button
         onClick={toggleLightMode}
-        className="fixed hidden top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 2xl:flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
+        className="fixed hidden top-5 right-5 z-40 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 md:flex items-center justify-center shadow-lg hover:from-blue-600 hover:to-indigo-700 transition-all duration-300"
       >
         {isLightMode ? (
           <Moon size={24} className="text-white" />
@@ -276,7 +279,7 @@ const CPUCoolingSimulation = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto 2xl:h-screen flex flex-col">
+      <div className={`max-w-7xl mx-auto  flex flex-col ${isFullscreen ? '' : '2xl:h-screen'}`}>
         <div className="text-center mb-4 md:mb-8 flex-0">
           <h1 className={`text-2xl md:text-4xl font-bold mb-2 md:mb-3 bg-gradient-to-r ${isLightMode ? 'from-blue-600 via-cyan-700 to-blue-800' : 'from-cyan-400 via-blue-500 to-cyan-600'} bg-clip-text text-transparent`}>
             SIMULASI SISTEM PENDINGINAN CPU
@@ -326,14 +329,20 @@ const CPUCoolingSimulation = () => {
             </svg>
           </button>
         </div>
-        <div className="flex 2xl:flex-row flex-col flex-1 justify-between overflow-hidden 2xl:max-h-full gap-4 md:gap-6">
-          <div className={`flex w-full border shadow-md rounded-lg  ${isLightMode ? "bg-white border-slate-200" : "bg-gradient-to-b from-[#050814] to-[#0f1729] border-slate-700"} h-fit p-2  md:p-4 rounded-md md:rounded-xl flex-col`}>
+        <div className={`flex  ${isFullscreen ? '' : ' 2xl:flex-row 2xl:max-h-full'} flex-col transition-all duration-300 flex-1 justify-between overflow-hidden  gap-4 md:gap-6`}>
+          <div className={`flex h-fit w-full border shadow-md rounded-lg  ${isLightMode ? "bg-white border-slate-200" : "bg-gradient-to-b from-[#050814] to-[#0f1729] border-slate-700"}  p-2  md:p-4 rounded-md md:rounded-xl flex-col`}>
             <CPUCoolingIllustration
               temp={temp}
               time={time}
               isRunning={isRunning}
               params={params}
               isLightMode={isLightMode}
+              onFullscreenChange={setIsFullscreen}
+              onStepModeChange={setStepMode}
+              onRunningChange={setIsRunning}
+              onTimeChange={setTime}
+              onTempChange={setTemp}
+              onSpeedChange={setSimulationSpeed}
             />
             <AspectRatio ratio={4 / 1} className="box w-full bg-unset p-4 ">
               <canvas
@@ -345,7 +354,7 @@ const CPUCoolingSimulation = () => {
             </AspectRatio>
           </div>
 
-          <div className="2xl:h-full w-full 2xl:max-w-md 2xl:overflow-y-auto pb-4 md:pb-8">
+          <div className={`2xl:h-full w-full ${isFullscreen ? '' : '2xl:max-w-md'} 2xl:overflow-y-auto pb-4 md:pb-8`}>
             <div className="flex-col gap-4 flex md:gap-6">
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/70 border border-blue-200' : 'bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur border border-slate-700/50'}`}>
                 <div className="flex justify-between items-center mb-4 md:mb-6">
@@ -585,7 +594,7 @@ const CPUCoolingSimulation = () => {
                           T(t) = {computedTemp.toFixed(2)}°C
                         </div>
                         <div className={`text-xs md:text-sm font-mono ${isLightMode ? 'text-slate-600' : 'text-slate-300'}`}>
-                          T<sub>amb</sub> + (T<sub>0</sub> − T<sub>amb</sub>) × e<sup>−k·{time.toFixed(2)}</sup>
+                          {Tambient} + ({T0} − {Tambient}) × 2.718<sup>−{k}·{time.toFixed(2)}</sup>
                         </div>
                       </div>
                     ) : (
@@ -985,6 +994,12 @@ const CPUCoolingSimulation = () => {
               isRunning={isRunning}
               params={params}
               isLightMode={isLightMode}
+              onFullscreenChange={setIsFullscreen}
+              onStepModeChange={setStepMode}
+              onRunningChange={setIsRunning}
+              onTimeChange={setTime}
+              onTempChange={setTemp}
+              onSpeedChange={setSimulationSpeed}
             />
             <AspectRatio ratio={4 / 1} className="box w-full bg-unset p-4 ">
               <canvas
@@ -996,7 +1011,7 @@ const CPUCoolingSimulation = () => {
             </AspectRatio>
           </div>
 
-          <div className="2xl:h-full w-full 2xl:max-w-md 2xl:overflow-y-auto pb-4 md:pb-8">
+          <div className={`2xl:h-full w-full ${isFullscreen ? '' : '2xl:max-w-md'} 2xl:overflow-y-auto pb-4 md:pb-8`}>
             <div className="flex-col gap-4 flex md:gap-6">
               <div className={`rounded-xl md:rounded-2xl p-4 md:p-6 shadow-xl ${isLightMode ? 'bg-white/80 border border-amber-200' : 'bg-gradient-to-br from-stone-800/90 to-stone-900/90 backdrop-blur border border-stone-600/50'}`}>
                 <div className="flex justify-between items-center mb-4 md:mb-6">
