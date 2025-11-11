@@ -229,11 +229,11 @@ const CPUCoolingSimulation = () => {
 
       <div className={`informationBox w-screen h-screen fixed top-0 left-0 backdrop-blur-md z-40 flex flex-col items-center justify-center p-4 text-center md:text-start transition-colors duration-300 ${isLightMode ? 'bg-slate-900/20' : 'bg-black/50'
         }`} style={{ display: 'flex' }}>
-        <div className={`textBox w-full lg:w-4xl overflow-hidden relative  p-6 rounded-2xl  animate__animated animate__jackInTheBox transtition-all flex   shadow-2xl   ${isLightMode
+        <div className={`textBox w-full lg:w-4xl overflow-hidden relative  p-6 rounded-2xl  animate__animated animate__jackInTheBox  flex   shadow-2xl   ${isLightMode
           ? 'bg-white/95 text-slate-800 border border-blue-200'
           : 'bg-slate-900/95 text-white border border-slate-700'
           }`}>
-          <div className="main_content relative flex flex-col items-center md:iteams-start max-w-lg z-10 justify-center ">
+          <div className="main_content relative flex flex-col items-center md:items-start max-w-lg z-10 justify-center ">
             <h2 className={`text-xl md:text-3xl font-bold mb-4 ${isLightMode
               ? 'bg-gradient-to-r from-blue-600 via-cyan-700 to-blue-800'
               : 'bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-600'
@@ -267,11 +267,11 @@ const CPUCoolingSimulation = () => {
               Mulai Simulasi
             </button>
           </div>
-          <div className="image_container absolute w-full h-full max-w-4xl overflow-hidden -z-1 left-[30%] top-0" style={{
+          <div className="image_container absolute w-full h-full max-w-4xl overflow-hidden  left-[30%] top-0" style={{
             maskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%)',
             WebkitMaskImage: 'linear-gradient(to left, rgba(0,0,0,1) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%)'
           }}>
-            <img className='w-full hidden md:block  object-contain  md:object-contain' src="/arlot.png" alt="" />
+            <img className='  md:w-full h-full md:h-auto  object-cover  md:object-contain' src="/arlot.png" alt="" />
           </div>
         </div>
       </div>
