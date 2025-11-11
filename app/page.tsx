@@ -94,7 +94,6 @@ const CPUCoolingSimulation = () => {
         img.src = src;
         images.push(img);
 
-        // Store main images in refs
         if (index === 0) cpuImageRef.current = img;
         if (index === 1) heatsinkImageRef.current = img;
         if (index === 2) fancoolerImageRef.current = img;
