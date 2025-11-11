@@ -23,6 +23,7 @@ const CPUCoolingSimulation = () => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [stepMode, setStepMode] = useState(false);
   const [simulationSpeed, setSimulationSpeed] = useState(1); // Speed multiplier dari child component
+  const [isLoading, setIsLoading] = useState(true);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animationRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -49,35 +50,56 @@ const CPUCoolingSimulation = () => {
   // Load images
   useEffect(() => {
     const loadImages = () => {
-      const cpuImg = new Image();
-      const heatsinkImg = new Image();
-      const fancoolerImg = new Image();
-      const liquidImg = new Image();
+      // Semua gambar yang perlu di-preload
+      const imageSources = [
+        'asset/CPU.png',
+        'asset/heatsink_.png',
+        'asset/fanCooler.png',
+        'asset/Liquid.png',
+        // Step mode images
+        'asset/arlotTalk.svg',
+        'asset/Liquid_1.png',
+        'asset/Liquid_2.png',
+        'asset/Liquid_3.png',
+        'asset/fanCooler_1.png',
+        'asset/fanCooler_2.png',
+        'asset/fanCooler_3.png',
+      ];
 
       let loadedCount = 0;
-      const totalImages = 4;
+      const totalImages = imageSources.length;
+      const images: HTMLImageElement[] = [];
 
       const onLoad = () => {
         loadedCount++;
         if (loadedCount === totalImages) {
           setImagesLoaded(true);
+          setIsLoading(false);
         }
       };
 
-      cpuImg.onload = onLoad;
-      heatsinkImg.onload = onLoad;
-      fancoolerImg.onload = onLoad;
-      liquidImg.onload = onLoad;
+      const onError = (src: string) => {
+        console.warn(`Failed to load image: ${src}`);
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+          setIsLoading(false);
+        }
+      };
 
-      cpuImg.src = 'asset/CPU.png';
-      heatsinkImg.src = 'asset/heatsink_.png';
-      fancoolerImg.src = 'asset/fanCooler.png';
-      liquidImg.src = 'asset/Liquid.png';
+      imageSources.forEach((src, index) => {
+        const img = new Image();
+        img.onload = onLoad;
+        img.onerror = () => onError(src);
+        img.src = src;
+        images.push(img);
 
-      cpuImageRef.current = cpuImg;
-      heatsinkImageRef.current = heatsinkImg;
-      fancoolerImageRef.current = fancoolerImg;
-      liquidImageRef.current = liquidImg;
+        // Store main images in refs
+        if (index === 0) cpuImageRef.current = img;
+        if (index === 1) heatsinkImageRef.current = img;
+        if (index === 2) fancoolerImageRef.current = img;
+        if (index === 3) liquidImageRef.current = img;
+      });
     };
 
     loadImages();
@@ -128,7 +150,7 @@ const CPUCoolingSimulation = () => {
           setTemp(calculateTemp(newTime, params));
           return newTime;
         });
-      }, 100 / simulationSpeed); // BAGI dengan simulationSpeed (0.5x = lambat, 2x = cepat)
+      }, 100 / simulationSpeed); 
     } else {
       if (animationRef.current) {
         clearInterval(animationRef.current);
@@ -186,6 +208,29 @@ const CPUCoolingSimulation = () => {
   // hitung dulu
   const exponentValue = Math.exp(-k * time);
   const computedTemp = Tambient + (T0 - Tambient) * exponentValue;
+
+  // Loading screen
+  if (isLoading) {
+    return (
+      <div className={`w-full min-h-screen flex items-center justify-center ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
+        <div className="flex flex-col items-center gap-6">
+          {/* Spinner */}
+          <div className="relative w-20 h-20">
+            <div className={`absolute inset-0 rounded-full border-4 border-t-transparent animate-spin ${isLightMode ? 'border-blue-500' : 'border-blue-400'}`}></div>
+            <div className={`absolute inset-2 rounded-full border-4 border-t-transparent animate-spin animation-delay-150 ${isLightMode ? 'border-cyan-400' : 'border-cyan-300'}`} style={{ animationDirection: 'reverse' }}></div>
+          </div>
+          {/* Loading text */}
+          <div className={`text-lg font-semibold ${isLightMode ? 'text-slate-700' : 'text-slate-200'}`}>
+            Memuat Simulasi...
+          </div>
+          {/* Progress hint */}
+          <div className={`text-sm ${isLightMode ? 'text-slate-500' : 'text-slate-400'}`}>
+            Sedang memuat asset dan komponen
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`w-full min-h-screen ${isFullscreen ? '' : '2xl:h-screen'} overflow-hidden p-4 md:p-6 ${isLightMode ? 'bg-gradient-to-br from-blue-50 via-cyan-50 to-indigo-50' : 'bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950'}`}>
@@ -1459,6 +1504,10 @@ const CPUCoolingSimulation = () => {
       </div>
 
       <style jsx>{`
+        .animation-delay-150 {
+          animation-delay: 150ms;
+        }
+
         .slider-red::-webkit-slider-thumb {
           appearance: none;
           height: 20px;
