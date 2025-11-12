@@ -528,9 +528,9 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                                     >
                                         {/* Title */}
                                         <div
-                                            className="font-bold"
+                                            className={`font-bold ${isFullscreen ? '2xl:text-[clamp(0.85rem, 1.7vw, 1.7rem)]' : 'md:text-clamp(0.5rem, 1.4vw, 1.4rem) md:text-clamp(0.85rem, 1.7vw, 1.7rem) 2xl:text-[clamp(0.5rem, 1.3vw, 0.85rem)]'}`}
                                             style={{
-                                                fontSize: isFullscreen ? 'clamp(0.85rem, 1.7vw, 1.7rem)' : 'clamp(0.5rem, 1.3vw, 0.85rem)',
+                                                
                                                 color: currentStepConfig.highlightColor,
                                                 marginBottom: '1%',
                                             }}
@@ -1209,7 +1209,7 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                         setIsFullscreen(newValue);
                         onFullscreenChange?.(newValue);
                     }}
-                    className={`p-2 rounded-lg transition-all duration-200 ${isLightMode
+                    className={`p-2 rounded-lg hidden 2xl:block transition-all duration-200 ${isLightMode
                         ? 'bg-blue-100 hover:bg-blue-200 text-blue-700'
                         : 'bg-slate-800 hover:bg-slate-700 text-white'
                         }`}
@@ -1256,7 +1256,7 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                 </button>
 
                 {/* Speed Control */}
-                <div className={`flex items-center gap-2 px-3 py-1 rounded-lg ${isLightMode ? 'bg-purple-100' : 'bg-purple-900/50'}`}>
+                <div className={`hidden md:flex items-center gap-2 px-3 py-1 rounded-lg ${isLightMode ? 'bg-purple-100' : 'bg-purple-900/50'}`}>
                     <Gauge size={16} className={isLightMode ? 'text-purple-700' : 'text-purple-300'} />
                     <select
                         value={speedMultiplier}
@@ -1313,7 +1313,7 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                             }`}
                             title={autoPlay ? "AUTO (Playing): Klik untuk Pause & Manual" : "MANUAL (Paused): Klik untuk Play & Auto"}
                         >
-                            {autoPlay ? "▶ AUTO" : "⏸ MANUAL"}
+                            {autoPlay ? "AUTO" : "MANUAL"}
                         </button>
 
                         {/* Next Step Button */}
