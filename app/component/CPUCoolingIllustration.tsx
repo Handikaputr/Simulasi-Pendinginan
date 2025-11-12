@@ -528,7 +528,7 @@ const CPUCoolingIllustration: React.FC<CPUCoolingIllustrationProps> = ({
                                     >
                                         {/* Title */}
                                         <div
-                                            className={`font-bold ${isFullscreen ? '2xl:text-[clamp(0.85rem, 1.7vw, 1.7rem)]' : 'md:text-clamp(0.5rem, 1.4vw, 1.4rem) md:text-clamp(0.85rem, 1.7vw, 1.7rem) 2xl:text-[clamp(0.5rem, 1.3vw, 0.85rem)]'}`}
+                                            className={`font-bold ${isFullscreen ? '2xl:text-[clamp(0.85rem, 1.7vw, 1.7rem)]' : 'text-[clamp(0.4rem, 1.0vw, 0.8rem)] md:text-[clamp(0.85rem, 1.7vw, 1.7rem)] 2xl:text-[clamp(0.5rem, 1.3vw, 0.85rem)]'}`}
                                             style={{
                                                 
                                                 color: currentStepConfig.highlightColor,
